@@ -1,0 +1,11 @@
+CHECKPOINTS_DIR: checkpoints
+DATA_NAME: vital_signs_case01
+SRC_DIR: src/ramtin-duplicate/
+batch_size: 64
+feature_column: Minute Volume
+label_column: NBP (Mean)
+model_name: lstmconv1D
+scaleBias4label: 59.30652971386647
+scaleRatio4label: 19.0
+time_column: RelativeTimeMilliseconds
+window_size: 80
