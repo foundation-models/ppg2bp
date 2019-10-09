@@ -8,9 +8,12 @@ SEP = '_' * 80
 class TestFocusGroup(TestCase):
 
     def test_init(self):
-        focusGroup = FocusGroup()
-        df = focusGroup.df
+        focus_grp = FocusGroup()
+        df = focus_grp.df
         print(df.head())
+        print(df[ColumnNames.SYSTOLIC].mean())
+        print(df[ColumnNames.DIASTOLIC].mean())
+        print(df[ColumnNames.PREDICTED].mean())
         print(df[ColumnNames.DIASTOLIC])
         print(SEP)
 
@@ -29,7 +32,7 @@ class TestFocusGroup(TestCase):
         print(normal_df[ColumnNames.DIASTOLIC])
         print(SEP)
 
-        anxious_group = FocusGroup(status_filter=Status.anxiety)
+        anxious_group = FocusGroup(status_filter=Status.anxious)
         anxious_df = anxious_group.df
         print(anxious_df[ColumnNames.DIASTOLIC])
         print(SEP)

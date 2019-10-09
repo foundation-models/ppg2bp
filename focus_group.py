@@ -27,7 +27,7 @@ class Posture(IntEnum):
 
 class Status(IntEnum):
     normal = 0
-    anxiety = 1
+    anxious = 1
 
 
 class FocusGroup:
@@ -36,8 +36,8 @@ class FocusGroup:
         diastolic, systolic, posture, status, predicted = get_column_names()
         df = pd.read_csv(Constants.SRC_URL, header=0)
         bp = [x.split('/') for x in df[ColumnNames.MEASUREMENT]]
-        df[diastolic] = [x[0] for x in bp]
-        df[systolic] = [x[1] for x in bp]
+        df[diastolic] = [int(x[0]) for x in bp]
+        df[systolic] = [int(x[1]) for x in bp]
         df = df if poster_filter is None else df[df[posture] == poster_filter.name]
         df = df if status_filter is None else df[df[status] == status_filter.name]
         self.df = df
