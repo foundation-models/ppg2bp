@@ -16,6 +16,10 @@ class ColumnNames:
     SYSTOLIC = "systolic"
 
 
+def get_column_names():
+    return ColumnNames.DIASTOLIC, ColumnNames.SYSTOLIC, ColumnNames.POSTURE, ColumnNames.STATUS, ColumnNames.PREDICTED
+
+
 class Posture(IntEnum):
     standing = 0
     sitting = 1
@@ -27,15 +31,16 @@ class Status(IntEnum):
 
 
 class FocusGroup:
-    def __init__(self):
+
+    def __init__(self, poster_filter=None, status_filter=None):
+        diastolic, systolic, posture, status, predicted = get_column_names()
         df = pd.read_csv(Constants.SRC_URL, header=0)
-        self.df = df
-        self.predicted = df[ColumnNames.PREDICTED]
         bp = [x.split('/') for x in df[ColumnNames.MEASUREMENT]]
-        self.diastolic = [x[0] for x in bp]
-        self.systolic = [x[1] for x in bp]
-        self.posture = [Posture[i] for i in df[ColumnNames.POSTURE]]
-        self.status = [Status[i] for i in df[ColumnNames.STATUS]]
+        df[diastolic] = [x[0] for x in bp]
+        df[systolic] = [x[1] for x in bp]
+        df = df if poster_filter is None else df[df[posture] == poster_filter.name]
+        df = df if status_filter is None else df[df[status] == status_filter.name]
+        self.df = df
 
 
 if __name__ == '__main__':
